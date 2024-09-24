@@ -15,8 +15,7 @@ $mensaje = "Actividad 5";
     
     <p>La fecha de hoy es: <strong><?php echo date("d/m/Y"); ?></strong></p>
     
-    <h2>ejercicio 1</h2>
-    <br />
+    <h2>Ejercicio 1</h2>
     <ul>
         <li><strong>$_myvar</strong>: Válida. Comienza con un <code>$</code> y el primer carácter después del <code>$</code> es un guion bajo (<code>_</code>), lo cual es permitido. Luego tiene letras, lo que también es válido.</li>
         <li><strong>$_7var</strong>: Válida. Comienza con un <code>$</code> y luego un guion bajo (<code>_</code>), lo cual es correcto. El número 7 aparece después del primer carácter, lo que es válido según las reglas de nombramiento de PHP.</li>
@@ -26,7 +25,7 @@ $mensaje = "Actividad 5";
         <li><strong>$_element1</strong>: Válida. Comienza con un <code>$</code> seguido de un guion bajo (<code>_</code>) y luego tiene letras y un número. Cumple con las reglas de nombramiento.</li>
         <li><strong>$house*5</strong>: No válida. Aunque comienza con <code>$</code>, contiene un símbolo no permitido (<code>*</code>), lo que invalida el nombre de la variable. Los caracteres especiales como <code>*</code> no son válidos en los nombres de variables.</li>
     </ul>
-    <br>
+    
     <h2>Ejercicio 2</h2>
     <h3>Bloque 1: Valores iniciales</h3>
     <?php
@@ -56,8 +55,8 @@ $mensaje = "Actividad 5";
     <h3>Descripción del segundo bloque de asignaciones</h3>
     <p>
     En el segundo bloque, la variable <strong>\$a</strong> cambió su valor a "PHP server". Dado que <strong>\$b</strong> 
-    se define como referencia a <strong>\$a</strong>, el valor de <strong>\$b</strong> también es "PHP server".
-    Sin embargo, <strong>\$c</strong> sigue siendo una referencia a <strong>\$a</strong>
+    se define como referencia a <strong>\$a</strong>, el valor de <strong>\$b</strong> también es "PHP server". Sin embargo, <strong>\$c</strong> sigue siendo una referencia a <strong>\$a</strong>.
+    </p>
 
     <h2>Ejercicio 3</h2>
     <?php
@@ -70,11 +69,12 @@ $mensaje = "Actividad 5";
         $z[0] = "MySQL";     // Cambia el valor referenciado por $z[0] a "MySQL"
         
         // Imprimir los valores de las variables
-        echo "a = " . $a . "\n"; // Imprime: a = PHP55a version de PHP
-        echo "b = " . $b . "\n"; // Imprime: b = 250
-        echo "c = " . $c . "\n"; // Imprime: c = 50
-        echo "z[0] = " . $z[0] . "\n"; // Imprime: z[0] = MySQL
+        echo "<p>a = " . $a . "</p>"; // Imprime: a = PHP55a version de PHP
+        echo "<p>b = " . $b . "</p>"; // Imprime: b = 250
+        echo "<p>c = " . $c . "</p>"; // Imprime: c = 50
+        echo "<p>z[0] = " . $z[0] . "</p>"; // Imprime: z[0] = MySQL
     ?>
+
     <h2>Ejercicio 4</h2>
     <?php
         $a = "PHP5";
@@ -88,10 +88,10 @@ $mensaje = "Actividad 5";
         // Función para imprimir valores usando global
         function printGlobals() {
             global $a, $b, $c, $z;
-            echo "a = " . $a . "\n"; // Imprime: a = PHP55a version de PHP
-            echo "b = " . $b . "\n"; // Imprime: b = 250
-            echo "c = " . $c . "\n"; // Imprime: c = 50
-            echo "z[0] = " . $z[0] . "\n"; // Imprime: z[0] = MySQL
+            echo "<p>a = " . $a . "</p>"; // Imprime: a = PHP55a version de PHP
+            echo "<p>b = " . $b . "</p>"; // Imprime: b = 250
+            echo "<p>c = " . $c . "</p>"; // Imprime: c = 50
+            echo "<p>z[0] = " . $z[0] . "</p>"; // Imprime: z[0] = MySQL
         }
 
         printGlobals();
@@ -104,9 +104,9 @@ $mensaje = "Actividad 5";
         $a = "9E3";
         $c = (double) $a;
 
-        echo "Valor de \$a: $a\n";
-        echo "Valor de \$b: $b\n";
-        echo "Valor de \$c: $c\n";        
+        echo "<p>Valor de \$a: $a</p>";
+        echo "<p>Valor de \$b: $b</p>";
+        echo "<p>Valor de \$c: $c</p>";        
     ?>
 
     <h2>Ejercicio 6</h2>
@@ -119,30 +119,34 @@ $mensaje = "Actividad 5";
        $f = ($a XOR $b);
        
        // Mostrar los valores booleanos usando var_dump
-       var_dump($a);
-       var_dump($b);
-       var_dump($c);
-       var_dump($d);
-       var_dump($e);
-       var_dump($f);
+       echo "<p>"; var_dump($a); echo "</p>";
+       echo "<p>"; var_dump($b); echo "</p>";
+       echo "<p>"; var_dump($c); echo "</p>";
+       echo "<p>"; var_dump($d); echo "</p>";
+       echo "<p>"; var_dump($e); echo "</p>";
+       echo "<p>"; var_dump($f); echo "</p>";
        
        // Mostrar valores booleanos convertidos a cadenas
-       echo "Valor de \$c: " . ($c ? 'true' : 'false') . "\n";
-       echo "Valor de \$e: " . ($e ? 'true' : 'false') . "\n";
+       echo "<p>Valor de \$c: " . ($c ? 'true' : 'false') . "</p>";
+       echo "<p>Valor de \$e: " . ($e ? 'true' : 'false') . "</p>";
     ?>
     
     <h2>Ejercicio 7</h2>
     <?php
         // Versión de Apache y PHP
-        echo 'Versión de Apache: ' . $_SERVER['SERVER_SOFTWARE'] . '<br>';
-        echo 'Versión de PHP: ' . phpversion() . '<br>';
+        echo '<p>Versión de Apache: ' . $_SERVER['SERVER_SOFTWARE'] . '</p>';
+        echo '<p>Versión de PHP: ' . phpversion() . '</p>';
 
         // Información del sistema operativo del servidor
-        echo 'Información del servidor: ' . $_SERVER['SERVER_SOFTWARE'] . '<br>';
+        echo '<p>Información del servidor: ' . $_SERVER['SERVER_SOFTWARE'] . '</p>';
 
         // Idioma del navegador
-        echo 'Idioma del navegador: ' . $_SERVER['HTTP_ACCEPT_LANGUAGE'];
+        echo '<p>Idioma del navegador: ' . $_SERVER['HTTP_ACCEPT_LANGUAGE'] . '</p>';
     ?>
-
 </body>
 </html>
+
+<p>
+    <a href="https://validator.w3.org/markup/check?uri=referer"><img
+      src="https://www.w3.org/Icons/valid-xhtml10" alt="Valid XHTML 1.0 Strict" height="31" width="88" /></a>
+  </p>
