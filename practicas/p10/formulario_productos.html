@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Producto</title>
+    <script>
+        function validarFormulario(event) {
+            // Validar el nombre
+            const nombre = document.getElementById('nombre').value;
+            if (!nombre || nombre.length > 100) {
+                alert("El nombre es requerido y debe tener 100 caracteres o menos.");
+                event.preventDefault();
+                return false;
+            }
+
+            // Validar la marca
+            const marca = document.getElementById('marca').value;
+            if (!marca) {
+                alert("Debes seleccionar una marca.");
+                event.preventDefault();
+                return false;
+            }
+
+            // Validar el modelo
+            const modelo = document.getElementById('modelo').value;
+            const modeloRegex = /^[a-zA-Z0-9]*$/; // Alfanumérico permitido, incluso vacío
+            if (modelo && (modelo.length > 25 || !modeloRegex.test(modelo))) {
+                alert("El modelo debe ser alfanumérico y tener 25 caracteres o menos.");
+                event.preventDefault();
+                return false;
+            }
+
+            // Validar el precio
+            const precio = parseFloat(document.getElementById('precio').value);
+            if (isNaN(precio) || precio <= 99.99) {
+                alert("El precio es requerido y debe ser mayor a 99.99.");
+                event.preventDefault();
+                return false;
+            }
+
+            // Validar los detalles (opcional)
+            const detalles = document.getElementById('detalles').value;
+            if (detalles && detalles.length > 250) {
+                alert("Los detalles deben tener 250 caracteres o menos.");
+                event.preventDefault();
+                return false;
+            }
+
+            // Validar las unidades
+            const unidades = parseInt(document.getElementById('unidades').value);
+            if (isNaN(unidades) || unidades < 0) {
+                alert("Las unidades son requeridas y deben ser mayor o igual a 0.");
+                event.preventDefault();
+                return false;
+            }
+
+            // Validar la imagen (opcional, establecer ruta por defecto si no se selecciona)
+            const imagen = document.getElementById('imagen').value;
+            if (!imagen) {
+                // Si no se selecciona imagen, establecer la ruta por defecto
+                document.getElementById('imagen').value = 'uploads/default_image.jpg';
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Registrar Nuevo Producto</h1>
+    <form action="set_producto_v2.php" method="post" enctype="multipart/form-data" onsubmit="validarFormulario(event)">
+        <!-- Nombre del Producto -->
+        <label for="nombre">Nombre del Producto:</label>
+        <input type="text" id="nombre" name="nombre" required>
+        <br><br>
+
+        <!-- Marca (selección de una lista) -->
+        <label for="marca">Marca:</label>
+        <select id="marca" name="marca" required>
+            <option value="">Seleccione una marca</option>
+            <option value="Marca1">EOTOW</option>
+            <option value="Marca2">UGREEN</option>
+            <option value="Marca3">NIERBO</option>
+        </select>
+        <br><br>
+
+        <!-- Modelo -->
+        <label for="modelo">Modelo:</label>
+        <input type="text" id="modelo" name="modelo" maxlength="25" required>
+        <br><br>
+
+        <!-- Precio -->
+        <label for="precio">Precio:</label>
+        <input type="number" id="precio" name="precio" step="0.01" required>
+        <br><br>
+
+        <!-- Detalles (opcional) -->
+        <label for="detalles">Detalles:</label>
+        <textarea id="detalles" name="detalles"></textarea>
+        <br><br>
+
+        <!-- Unidades -->
+        <label for="unidades">Unidades:</label>
+        <input type="number" id="unidades" name="unidades" required>
+        <br><br>
+
+        <!-- Imagen (opcional) -->
+        <label for="imagen">Imagen del Producto:</label>
+        <input type="file" id="imagen" name="imagen" accept="image/*">
+        <br><br>
+
+        <!-- Botón para enviar el formulario -->
+        <input type="submit" value="Registrar Producto">
+        <input type="reset"></p>
+    </form>
+</body>
+</html>
