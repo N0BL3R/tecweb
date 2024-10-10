@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modificar Producto</title>
+    <script>
+        function cargarDatosProducto() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const idProducto = urlParams.get('id');
+
+            if (idProducto) {
+                document.getElementById('id_producto').value = idProducto;
+
+                // Hacer la solicitud AJAX para obtener los datos del producto
+                fetch('get_productos_vigentes_v2.php?id=' + idProducto)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.error) {
+                            alert(data.error);
+                        } else {
+                            // Llenar el formulario con los datos del producto
+                            document.getElementById('nombre').value = data.nombre;
+                            document.getElementById('marca').value = data.marca;
+                            document.getElementById('modelo').value = data.modelo;
+                            document.getElementById('precio').value = data.precio;
+                            document.getElementById('detalles').value = data.detalles;
+                            document.getElementById('unidades').value = data.unidades;
+                            if (data.imagen) {
+                                document.getElementById('imagen-preview').src = data.imagen;
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error al obtener el producto:', error);
+                    });
+            }
+        }
+
+        function validarFormulario(event) {
+            event.preventDefault(); // Evitar el envío del formulario
+            const nombre = document.getElementById('nombre').value;
+            const modelo = document.getElementById('modelo').value;
+            const precio = parseFloat(document.getElementById('precio').value);
+            const detalles = document.getElementById('detalles').value;
+            const unidades = parseInt(document.getElementById('unidades').value);
+
+            // Validar detalles (máximo 250 caracteres)
+            if (nombre.length > 25) {
+                alert('El nombre no puede exceder los 25 caracteres.');
+                return;
+            }
+
+            // Validar el modelo (alfanumérico incluyendo caracteres especiales y máximo 25 caracteres)
+            const modeloRegex = /^[\w\s\W]{1,25}$/; // Permitir alfanuméricos y caracteres especiales
+            if (!modeloRegex.test(modelo)) {
+                alert('El modelo debe ser alfanumérico e incluir caracteres especiales, y no puede tener más de 25 caracteres.');
+                return;
+            }
+
+            // Validar el precio (mayor a 99.99)
+            if (precio <= 99.99) {
+                alert('El precio debe ser mayor a 99.99.');
+                return;
+            }
+
+            // Validar detalles (máximo 250 caracteres)
+            if (detalles.length > 250) {
+                alert('Los detalles no pueden exceder los 250 caracteres.');
+                return;
+            }
+
+            // Validar unidades (mayor a 0)
+            if (unidades <= 0) {
+                alert('Las unidades deben ser mayores a 0.');
+                return;
+            }
+
+            // Si todas las validaciones pasan, enviar el formulario
+            document.querySelector('form').submit();
+        }
+
+        window.onload = cargarDatosProducto;
+    </script>
+</head>
+<body>
+    <h1>Modificar Producto</h1>
+    <form action="set_producto_v2.php" method="post" enctype="multipart/form-data" onsubmit="validarFormulario(event)">
+        <!-- Campo oculto para el ID del producto -->
+        <input type="hidden" name="id" id="id_producto">
+
+        <!-- Nombre del Producto -->
+        <label for="nombre">Nombre del Producto:</label>
+        <input type="text" id="nombre" name="nombre" required>
+        <br><br>
+
+        <!-- Marca -->
+        <label for="marca">Marca:</label>
+        <select id="marca" name="marca" required>
+            <option value="">Seleccione una marca</option>
+            <option value="EOTOW">EOTOW</option>
+            <option value="UGREEN">UGREEN</option>
+            <option value="NIERBO">NIERBO</option>
+            <option value="AOLION">AOLION</option>
+            <option value="VAGABOX">VAGABOX</option>
+            <option value="MndMeid">MndMeid</option>
+            <option value="Dosyu">Dosyu</option>
+            <option value="Atvio">Atvio</option>
+            <option value="SwissDigital">SwissDigital</option>
+            <option value="Skullcandy">Skullcandy</option>
+            <option value="Duxongoo">Duxongoo</option>
+            <option value="Mattel">Mattel</option>
+            <option value="Rubiks">Rubiks</option>
+            <option value="YouToozPlush">YouToozPlush</option>
+        </select>
+        <br><br>
+
+        <!-- Modelo -->
+        <label for="modelo">Modelo:</label>
+        <input type="text" id="modelo" name="modelo" maxlength="25" required>
+        <br><br>
+
+        <!-- Precio -->
+        <label for="precio">Precio:</label>
+        <input type="number" id="precio" name="precio" step="0.01" required>
+        <br><br>
+
+        <!-- Detalles -->
+        <label for="detalles">Detalles:</label>
+        <textarea id="detalles" name="detalles" maxlength="250"></textarea>
+        <br><br>
+
+        <!-- Unidades -->
+        <label for="unidades">Unidades:</label>
+       
+        <!-- Unidades -->
+        <label for="unidades">Unidades:</label>
+        <input type="number" id="unidades" name="unidades" required>
+        <br><br>
+
+        <!-- Imagen -->
+        <label for="imagen">Imagen del Producto:</label>
+        <input type="file" id="imagen" name="imagen" accept="image/*">
+        <br><br>
+        <img id="imagen-preview" src="" alt="Previsualización de la imagen" width="100">
+        <br><br>
+ 
+
+        <!-- Botón para enviar el formulario -->
+        <input type="submit" value="Modificar Producto">
+    </form>
+</body>
+</html>
