@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Productos</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="app.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Gestión de Productos</h1>
+        <form id="product-form">
+            <div class="form-group">
+                <label for="name">Nombre del Producto:</label>
+                <input type="text" class="form-control" id="name" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Descripción:</label>
+                <textarea class="form-control" id="description" rows="5" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Agregar Producto</button>
+            <button type="button" class="btn btn-secondary" id="edit-button" style="display: none;">Actualizar Producto</button>
+        </form>
+        <div class="input-group my-3">
+            <input type="text" id="search" placeholder="Buscar productos..." class="form-control">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" id="search-button">Buscar</button>
+            </div>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="products"></tbody>
+        </table>
+        <div id="product-result" class="card my-4 d-none">
+            <ul id="container"></ul>
+        </div>
+    </div>
+</body>
+</html>
