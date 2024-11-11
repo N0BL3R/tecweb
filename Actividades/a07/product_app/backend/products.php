@@ -13,7 +13,7 @@ class Producto {
 
     // Método para obtener todos los productos
     public function getAllProductos() {
-        $query = "SELECT * FROM " . $this->table;
+        $query = "SELECT * FROM " . $this->table . " WHERE eliminado = 0"; // Agrega la condición para excluir eliminados
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -28,6 +28,7 @@ class Producto {
             return json_encode(['mensaje' => 'No hay productos']);
         }
     }
+
 
     // Método para agregar un nuevo producto
     public function addProducto($nombre, $marca, $modelo, $precio, $detalles, $unidades, $imagen) {
@@ -54,49 +55,41 @@ class Producto {
 
     // Método para eliminar un producto
     public function deleteProducto($id) {
-        $query = "DELETE FROM " . $this->table . " WHERE id = ?";
+        $query = "UPDATE " . $this->table . " SET eliminado = 1 WHERE id = ?";
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param("i", $id);
 
         if ($stmt->execute()) {
-            return json_encode(['mensaje' => 'Producto eliminado correctamente']);
+            return json_encode(['mensaje' => 'Producto marcado como eliminado correctamente']);
         } else {
-            return json_encode(['mensaje' => 'Error al eliminar producto']);
-        }
+            return json_encode(['mensaje' => 'Error al marcar producto como eliminado']);
     }
+}
+
 
     // Método para editar un producto
-    public function updateProducto($id, $nombre, $marca, $modelo, $precio, $detalles, $unidades, $imagen) {
-        // Si la imagen está vacía, se asume que no se debe actualizar
+    public function updateProducto($id, $nombre, $marca, $modelo, $precio, $detalles, $unidades, $imagen = null) {
+        // Si la imagen no está definida o es vacía, no se actualiza la imagen
         if (empty($imagen)) {
-            return json_encode(['mensaje' => 'Imagen no válida']);
-        }
-    
-        // Consulta SQL para actualizar el producto
-        $query = "UPDATE " . $this->table . " 
-                  SET nombre = ?, marca = ?, modelo = ?, precio = ?, detalles = ?, unidades = ?, imagen = ? 
-                  WHERE id = ? AND eliminado = 0";
-    
-        $stmt = $this->conn->prepare($query);
-    
-        if ($stmt === false) {
-            return json_encode(['mensaje' => 'Error al preparar la consulta: ' . $this->conn->error]);
-        }
-    
-        // Vinculamos los parámetros con los valores
-        $stmt->bind_param("ssssssii", $nombre, $marca, $modelo, $precio, $detalles, $unidades, $imagen, $id);
-    
-        // Ejecutamos la consulta
-        if ($stmt->execute()) {
-            return json_encode(['mensaje' => 'Producto actualizado correctamente']);
+            $query = "UPDATE " . $this->table . " 
+                      SET nombre = ?, marca = ?, modelo = ?, precio = ?, detalles = ?, unidades = ? 
+                      WHERE id = ? AND eliminado = 0";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bind_param("ssssssi", $nombre, $marca, $modelo, $precio, $detalles, $unidades, $id);
         } else {
-            return json_encode(['mensaje' => 'Error al actualizar producto: ' . $stmt->error]);
+            // Si se proporciona una imagen, la actualizamos también
+            $query = "UPDATE " . $this->table . " 
+                      SET nombre = ?, marca = ?, modelo = ?, precio = ?, detalles = ?, unidades = ?, imagen = ? 
+                      WHERE id = ? AND eliminado = 0";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bind_param("sssssssi", $nombre, $marca, $modelo, $precio, $detalles, $unidades, $imagen, $id);
+        }
+        if ($stmt->execute()) {
+            return json_encode(['status' => 'success', 'message' => 'Producto actualizado correctamente.']);
+        } else {
+            return json_encode(['status' => 'error', 'message' => 'Error al actualizar producto: ' . $stmt->error]);
         }
     }
-    
-    
-    
-
     // Método para buscar productos
     public function searchProductos($searchTerm) {
         $query = "SELECT * FROM " . $this->table . " WHERE nombre LIKE ? OR marca LIKE ? OR modelo LIKE ?";

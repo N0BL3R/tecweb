@@ -108,16 +108,23 @@ $(document).on('click', '.product-delete', function() {
         var id = row.attr('productId');
         
         $.get(`./backend/product-delete.php?id=${id}`, function(response) {
-            let respuesta = JSON.parse(response);
-            alert(`${respuesta.status}: ${respuesta.message}`);
-            listarProductos();
+            try {
+                let respuesta = JSON.parse(response); // Asegúrate de que la respuesta es válida JSON
+                alert(`${respuesta.mensaje}`); // Mostramos el mensaje correctamente
+                listarProductos();
+            } catch (e) {
+                console.error('Error al procesar la respuesta:', e);
+                alert('Hubo un error al eliminar el producto.');
+            }
         });
     }
 });
 
+
 // Función para agregar un nuevo producto
 $('#product-form').submit(function(e) {
     e.preventDefault();
+    
     var productoJsonString = $('#description').val();
     var finalJSON = JSON.parse(productoJsonString);
     finalJSON['nombre'] = $('#name').val();
@@ -129,12 +136,25 @@ $('#product-form').submit(function(e) {
         contentType: 'application/json',
         data: productoJsonString,
         success: function(response) {
-            let respuesta = JSON.parse(response);
-            alert(`${respuesta.status}: ${respuesta.message}`);
-            listarProductos();
+            // Aquí ya no es necesario usar JSON.parse, ya que 'response' es un objeto
+            console.log(response);  // Verifica lo que recibes del servidor
+
+            // Muestra el mensaje de éxito o error según la respuesta del servidor
+            if (response.status === 'success') {
+                alert(response.message);  // Muestra el mensaje de éxito
+            } else {
+                alert(`Error: ${response.message}`);  // Muestra un mensaje de error si existe
+            }
+
+            listarProductos();  // Refresca la lista de productos
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            alert('Error en la solicitud: ' + textStatus + ' - ' + errorThrown);
+            console.error('Error en la solicitud:', jqXHR);
         }
     });
 });
+
 
 // Búsqueda al teclear
 $('#search').on('input', function() {
