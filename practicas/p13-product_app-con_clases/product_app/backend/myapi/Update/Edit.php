@@ -1,9 +1,11 @@
 <?php
-namespace TECWEB\MYAPI\Update;
+namespace Marketzone\ProductApp\Update;
 
-use TECWEB\MYAPI\DataBase;
+use Marketzone\ProductApp\DataBase;
 
-require_once __DIR__ . '/../DataBase.php';
+//require_once __DIR__ . '/../DataBase.php';
+//require_once __DIR__ . '/vendor/autoload.php';
+
 
 class Edit extends DataBase {
     public function edit($jsonOBJ) {

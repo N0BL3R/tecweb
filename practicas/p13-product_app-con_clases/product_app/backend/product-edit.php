@@ -1,7 +1,8 @@
 <?php
+require_once __DIR__ . '/../vendor/autoload.php';
 // Asegúrate de incluir la clase necesaria
-use TECWEB\MYAPI\Update\Edit;
-require_once __DIR__ . '/MYAPI/Update/Edit.php';  // Ruta correcta al archivo Edit.php
+use Marketzone\ProductApp\Update\Edit;
+//require_once __DIR__ . '/MYAPI/Update/Edit.php';  // Ruta correcta al archivo Edit.php
 
 // Crear una instancia de Edit (usando el nombre correcto de la clase)
 $editProduct = new Edit('marketzone', 'root', 'rS7;A35_nj39L');

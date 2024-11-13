@@ -1,7 +1,8 @@
 <?php
+require_once __DIR__ . '/../vendor/autoload.php';
 // Asegúrate de incluir la clase necesaria
-use TECWEB\MYAPI\Delete\Delete;
-require_once __DIR__ . '/MYAPI/Delete/Delete.php';  // Ruta correcta al archivo Delete.php
+use Marketzone\ProductApp\Delete\Delete;
+//require_once __DIR__ . '/MYAPI/Delete/Delete.php';  // Ruta correcta al archivo Delete.php
 
 // Crear una instancia de Delete
 $deleteProduct = new Delete('marketzone', 'root', 'rS7;A35_nj39L');

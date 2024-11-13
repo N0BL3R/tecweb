@@ -1,9 +1,11 @@
 <?php
-namespace TECWEB\MYAPI\Delete;
+namespace Marketzone\ProductApp\Delete;
 
-use TECWEB\MYAPI\DataBase;
+use Marketzone\ProductApp\DataBase;
 
-require_once __DIR__ . '/../DataBase.php';
+//require_once __DIR__ . '/../DataBase.php';
+//require_once __DIR__ . '/vendor/autoload.php';
+
 
 class Delete extends DataBase {
     public function delete($id) {

@@ -1,9 +1,8 @@
 <?php
-namespace TECWEB\MYAPI\Read;
+namespace Marketzone\ProductApp\Read;
 
-use TECWEB\MYAPI\DataBase;
-
-require_once __DIR__ . '/../DataBase.php';  // Ajusta la ruta según la ubicación
+use Marketzone\ProductApp\DataBase;
+//require_once __DIR__ . '/../DataBase.php';  // Ajusta la ruta según la ubicación
 
 
 class ListProducts extends DataBase {

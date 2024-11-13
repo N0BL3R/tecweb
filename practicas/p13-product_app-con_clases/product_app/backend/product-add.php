@@ -1,8 +1,7 @@
 <?php
-// Asegúrate de incluir la clase necesaria
-use TECWEB\MYAPI\Create\Add;
-require_once __DIR__ . '/MYAPI/Create/Add.php';  // Ruta correcta al archivo Add.php
+require_once __DIR__ . '/../vendor/autoload.php';
 
+use Marketzone\ProductApp\Create\Add;
 // Crear una instancia de Add (usando el nombre correcto de la clase)
 $addProduct = new Add('marketzone', 'root', 'rS7;A35_nj39L');
 

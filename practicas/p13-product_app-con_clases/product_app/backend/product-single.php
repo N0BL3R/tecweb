@@ -1,7 +1,8 @@
 <?php
+require_once __DIR__ . '/../vendor/autoload.php';
 // Asegúrate de incluir la clase necesaria
-use TECWEB\MYAPI\Read\Single;
-require_once __DIR__ . '/MYAPI/Read/Single.php';  // Ruta correcta al archivo Single.php
+use Marketzone\ProductApp\Read\Single;
+//require_once __DIR__ . '/MYAPI/Read/Single.php';  // Ruta correcta al archivo Single.php
 
 // Crear una instancia de Single (usando el nombre correcto de la clase)
 $singleProduct = new Single('marketzone', 'root', 'rS7;A35_nj39L');

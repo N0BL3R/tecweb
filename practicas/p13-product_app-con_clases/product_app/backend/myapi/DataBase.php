@@ -1,5 +1,5 @@
 <?php
-namespace TECWEB\MYAPI;
+namespace Marketzone\ProductApp;
 
 abstract class DataBase {
     protected $conexion;

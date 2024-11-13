@@ -1,9 +1,11 @@
 <?php
-namespace TECWEB\MYAPI\Read;
+namespace Marketzone\ProductApp\Read;
 
-use TECWEB\MYAPI\DataBase;
+use Marketzone\ProductApp\DataBase;
 
-require_once __DIR__ . '/../DataBase.php';
+//require_once __DIR__ . '/../DataBase.php';
+//require_once __DIR__ . '/vendor/autoload.php';
+
 
 class Search extends DataBase {
     public function search($search) {

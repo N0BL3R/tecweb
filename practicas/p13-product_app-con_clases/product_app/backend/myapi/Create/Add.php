@@ -1,9 +1,10 @@
 <?php
-namespace TECWEB\MYAPI\Create;
+namespace Marketzone\ProductApp\Create;
 
-use TECWEB\MYAPI\DataBase;
+use Marketzone\ProductApp\DataBase;
 
-require_once __DIR__ . '/../DataBase.php';
+//require_once __DIR__ . '/../DataBase.php';
+
 
 class Add extends DataBase {
     public function add($jsonOBJ) {
